@@ -15,7 +15,7 @@ sudo apt-get install -y ros-kinetic-desktop-full -y
 sudo apt-get install git python-pip python-wstool -y
 
 # Put package after
-sudo apt-get install ros-kinetic-navigation ros-kinetic-image_pipeline ros-kinetic-octomap libtf-dev -y
+sudo apt-get install ros-kinetic-navigation ros-kinetic-image_pipeline ros-kinetic-octomap ros-kinetic-joy libopenni2-dev tcl-vtk libtf-dev -y
 
 
 # ROS Install
