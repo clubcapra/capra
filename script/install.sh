@@ -18,12 +18,14 @@ sudo apt-get install git python-pip python-wstool -y
 sudo apt-get install ros-kinetic-navigation ros-kinetic-image_pipeline ros-kinetic-octomap ros-kinetic-joy libopenni2-dev tcl-vtk libtf-dev -y
 
 # ROS Install
-wstool init src ~/capra/rosinstall/capra.rosinstall
-wstool update -t src
+wstool init vendor/src ~/capra/rosinstall/capra.rosinstall
+wstool update -t vendor/src
 
 # Source .bash
 echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 echo "source ~/capra/devel/setup.bash" >> ~/.bashrc
+echo "source ~/capra/vendor/devel/setup.bash" >> ~/.bashrc
+
 source ~/.bashrc
 
 #git config stuff
@@ -39,14 +41,10 @@ echo "Configuring and setting up git and submodules..."
 	git config --global color.branch auto
 	git config --global color.diff true
 
-	git submodule init  
+	git submodule init
 	git submodule update --init --recursive
 	git submodule foreach git pull origin master
-
-	pushd src/navigation/ 2>&1
-	git checkout indigo-devel 
-	popd 2>&1
-} >> $logFile 
+} >> $logFile
 
 
 # ROSdep install
@@ -54,7 +52,15 @@ sudo rosdep init
 rosdep update
 rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
 
+# Build external source packages
+cd ~/capra/vendor/
+catkin_make
 
+# Load vendor setup.bash
+source ~/.bashrc
+
+# Build our packages
+cd ~/capra
 catkin_make
 
 echo "Install Done"
