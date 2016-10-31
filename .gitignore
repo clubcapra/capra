@@ -169,3 +169,6 @@ ENV/
 # Rope project settings
 .ropeproject
 devel
+
+/vendor/src/*
+!/vendor/src/CMakeLists.txt
