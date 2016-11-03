@@ -81,7 +81,7 @@ echo "Setting up ROS PATH and environment"
         source /opt/ros/kinetic/setup.bash
         source \$URIAL_DIR/devel/setup.bash
         export ROSCONSOLE_FORMAT='[\${severity}] [\${node}] [\${time}]: \${message}'
-        alias ibex='cd \$URIAL_HOME'
+        alias urial='cd \$URIAL_HOME'
         alias apti='sudo apt-get install'
 #ROS stuff END" >> $BASHRC
 
