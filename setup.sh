@@ -1,5 +1,6 @@
-# Automatic install of Ibex for Capra. Please have Ibex at ~/Ibex for perfect results. Update the PATH script stuff if it's not the case.
+#!/bin/bash
 
+# Automatic install of Ibex for Capra. Please have Urial at ~/Urial for perfect results. Update the PATH script stuff if it's not the case.
 allDone=0
 
 abort()
@@ -86,6 +87,7 @@ echo "Setting up ROS PATH and environment"
 #ROS stuff END" >> $BASHRC
 
 
+    . /opt/ros/kinetic/setup.bash
 	source /opt/ros/kinetic/setup.bash
 	#sudo cp $IBEX_DIR/install/49-capra.rules /etc/udev/rules.d/
 	sudo addgroup $USER dialout
