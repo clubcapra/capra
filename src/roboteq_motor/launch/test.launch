@@ -1,0 +1,4 @@
+<launch>	
+	<node pkg="roboteq_motor" name="test" type="test.py" output="screen">
+	</node>
+</launch>
