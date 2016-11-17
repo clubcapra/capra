@@ -51,7 +51,7 @@ sudo apt-get install -y ros-kinetic-desktop-full -y
 sudo apt-get install git python-pip python-wstool -y
 
 # Put package after
-sudo apt-get install ros-kinetic-navigation ros-kinetic-image-pipeline ros-kinetic-octomap ros-kinetic-joy libopenni2-dev tcl-vtk libtf-dev ros-kinetic-serial -y
+sudo apt-get install ros-kinetic-navigation ros-kinetic-image-pipeline ros-kinetic-octomap ros-kinetic-joy libopenni2-dev tcl-vtk libtf-dev ros-kinetic-serial python-roslaunch -y
 
 # ROS Install
 rm -f $URIAL_DIR/vendor/src/.rosinstall
@@ -80,14 +80,14 @@ echo "Setting up ROS PATH and environment"
         echo "#ROS stuff BEGIN
         export URIAL_HOME=$URIAL_DIR
         source /opt/ros/kinetic/setup.bash
-        source \$URIAL_DIR/devel/setup.bash
+        source \$URIAl_HOME/devel/setup.bash
         export ROSCONSOLE_FORMAT='[\${severity}] [\${node}] [\${time}]: \${message}'
         alias urial='cd \$URIAL_HOME'
         alias apti='sudo apt-get install'
 #ROS stuff END" >> $BASHRC
 
 
-    . /opt/ros/kinetic/setup.bash
+	. /opt/ros/kinetic/setup.bash
 	source /opt/ros/kinetic/setup.bash
 	#sudo cp $IBEX_DIR/install/49-capra.rules /etc/udev/rules.d/
 	sudo addgroup $USER dialout
