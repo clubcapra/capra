@@ -1,0 +1,17 @@
+<launch>
+    <arg name="magnetic_declination_radians" default="0.0" />
+
+  <!-- NavSat serial comms -->
+  <group ns="gps">
+    <node pkg="nmea_navsat_driver" type="nmea_serial_driver" name="nmea_serial_node">
+      <param name="port" value="/dev/ttyUSB0" />
+      <param name="baud" value="9600" />
+    </node>
+
+  </group>
+
+    
+
+    <node pkg="capra_gps" type="gps_low_cov.py" name="gps_low_cov" output="screen" />
+
+</launch>
