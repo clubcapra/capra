@@ -14,15 +14,6 @@
   <rosparam command="load" param="robot_description" file="$(arg robot_description)" />
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="capra6_state_publisher" />
 
-
-  <!-- Motors -->
-  <group if="$(arg motors)">
-    <include file="$(find animatics_smart_motor)/launch/SmartMotor.launch" />
-      <group if="$(arg publish_motor_odom)">
-        <include file="$(find animatics_smart_motor)/launch/OdomToTf.launch" />
-      </group>
-  </group>
-
   <!-- LIDAR -->
   <group if="$(arg lidar)">
     <include file="$(find capra_lidar)/launch/LMS100.launch" />
