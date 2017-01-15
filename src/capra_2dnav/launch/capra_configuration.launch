@@ -16,7 +16,7 @@
 
   <!-- LIDAR -->
   <group if="$(arg lidar)">
-    <include file="$(find capra_lidar)/launch/LMS100.launch" />
+    <include file="$(find capra_lidar)/launch/lms100.launch" />
   </group>
 
   <!-- IMU -->
