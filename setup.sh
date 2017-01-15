@@ -67,6 +67,13 @@ wstool update -t $URIAL_DIR/vendor/src
 #PATH and .bashrc stuff
 echo "Setting up ROS PATH and environment"
 {
+    if grep -q "$URIAL_DIR/env.sh" "$HOME/.bashrc"; then
+        echo "env.sh already sourced in .bashrc"
+    else
+        echo "Sourcing env.sh in .bashrc"
+        echo "source $URIAL_DIR/env.sh" >> $HOME/.bashrc
+    fi
+
     . /opt/ros/kinetic/setup.bash
     source /opt/ros/kinetic/setup.bash
     #sudo cp $IBEX_DIR/install/49-capra.rules /etc/udev/rules.d/
@@ -81,13 +88,6 @@ echo "Setting up ROS PATH and environment"
 	sudo rosdep init
 	rosdep update
 	rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
-    fi
-
-    if grep -q "$URIAL_DIR/env.sh" "$HOME/.bashrc"; then
-        echo "env.sh already sourced in .bashrc"
-    else
-        echo "Sourcing env.sh in .bashrc"
-        echo "source $URIAL_DIR/env.sh" >> .bashrc
     fi
 } >> $logFile
 
