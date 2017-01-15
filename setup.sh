@@ -67,49 +67,28 @@ wstool update -t $URIAL_DIR/vendor/src
 #PATH and .bashrc stuff
 echo "Setting up ROS PATH and environment"
 {
-	#Add ROS stuff in .bashrc
-	ROS_BORDER_BEGIN='#ROS stuff BEGIN'
-        ROS_BORDER_END='#ROS stuff END'
+    . /opt/ros/kinetic/setup.bash
+    source /opt/ros/kinetic/setup.bash
+    #sudo cp $IBEX_DIR/install/49-capra.rules /etc/udev/rules.d/
+    sudo addgroup $USER dialout
 
-        if [[   $(cat "$BASHRC" | grep "$ROS_BORDER_BEGIN" | wc -l) -eq 1 &&
-                $(cat "$BASHRC" | grep "$ROS_BORDER_END" | wc -l) -eq 1 ]]
-        then
-            echo "[INFO] - Deleting old configs in $BASHRC"
-            sed -i '/#ROS stuff BEGIN/,/#ROS stuff END/d' $BASHRC
-        elif [[ $(cat "$BASHRC" | grep Ibex | wc -l) -gt 0 ]]; then
-            echo "[ERROR] - Your .bashrc is old. You must remove all yout ROS config in .bashrc manually then re-run this script to continue. Exiting..."
-            exit 2
-        fi
+    # ROSdep install
 
-        echo "[INFO] - Setting latest configs in $BASHRC"
-        echo "#ROS stuff BEGIN
-        export URIAL_HOME=$URIAL_DIR
-        source /opt/ros/kinetic/setup.bash
-        source \$URIAl_HOME/devel/setup.bash
-        export ROSCONSOLE_FORMAT='[\${severity}] [\${node}] [\${time}]: \${message}'
-        alias urial='cd \$URIAL_HOME'
-        alias apti='sudo apt-get install'
-#ROS stuff END" >> $BASHRC
+    if [ -f "/etc/ros/rosdep/sources.list.d/20-default.list" ]
+    then
+	echo "Rosdep seems to be already there. Skipping.. "
+    else
+	sudo rosdep init
+	rosdep update
+	rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
+    fi
 
-
-	. /opt/ros/kinetic/setup.bash
-	source /opt/ros/kinetic/setup.bash
-	#sudo cp $IBEX_DIR/install/49-capra.rules /etc/udev/rules.d/
-	sudo addgroup $USER dialout
-
-	# ROSdep install
-
-if [ -f "/etc/ros/rosdep/sources.list.d/20-default.list" ]
-	then
-		echo "Rosdep seems to be already there. Skipping.. "
-	else
-		sudo rosdep init
-		rosdep update
-		rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
-fi
-
-
-
+    if grep -q "$URIAL_DIR/env.sh" "$HOME/.bashrc"; then
+        echo "env.sh already sourced in .bashrc"
+    else
+        echo "Sourcing env.sh in .bashrc"
+        echo "source $URIAL_DIR/env.sh" >> .bashrc
+    fi
 } >> $logFile
 
 
@@ -125,8 +104,6 @@ echo "Configuring and setting up git and submodules..."
 	git config --global color.status auto
 	git config --global color.branch auto
 	git config --global color.diff true
-
-
 } >> $logFile
 
 #build workspace
@@ -135,18 +112,14 @@ echo "Configuring and setting up git and submodules..."
 source $BASHRC
 
 echo "Building workspace... This can take a while"
-catkin_make >> $logFile
 
 # Build external source packages
 cd $URIAL_DIR/vendor/
-catkin_make
-
+catkin_make >> $logFile
 
 # Build our packages
 cd $URIAL_DIR
-catkin_make
-
-
+catkin_make >> $logFile
 
 #source workspace
 source $URIAL_DIR/devel/setup.bash
