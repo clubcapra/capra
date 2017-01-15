@@ -9,10 +9,9 @@ alias urial='cd $URIAL_HOME'
 
 echo $URIAL_HOME/devel/setup.bash
 
-. /opt/ros/kinetic/setup.bash
+source /opt/ros/kinetic/setup.bash
 
-. $URIAL_HOME/devel/setup.bash
+source $URIAL_HOME/devel/setup.bash
 
-. $URIAL_HOME/vendor/devel/setup.bash
+source $URIAL_HOME/vendor/devel/setup.bash --extend
 
-export ROS_PACKAGE_PATH=$URIAL_HOME/vendor/src:$URIAL_HOME/src:/opt/ros/kinetic/share
