@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$USER" = "root" ]; then
+    echo "Do not run setup.sh as root"
+    exit 1
+fi
+
 # Automatic install of Ibex for Capra. Please have Urial at ~/Urial for perfect results. Update the PATH script stuff if it's not the case.
 allDone=0
 
@@ -9,7 +14,7 @@ abort()
 	then
 	    echo "
 =============================================
-Error install Ibex. Aborting. 
+Error install Ibex. Aborting.
 Please check $logFile for details
 =============================================" >&2
 	fi
@@ -28,7 +33,7 @@ logFile="logsetup.log"
 
 echo "=============================================================
 Installing Ibex...
-The process may take a while. If you're worried something 
+The process may take a while. If you're worried something
 went wrong, juste check the logs ($logFile)
 ============================================================="
 
@@ -57,7 +62,7 @@ sudo apt-get install ros-kinetic-navigation ros-kinetic-image-pipeline ros-kinet
 rm -f $URIAL_DIR/vendor/src/.rosinstall
 wstool init $URIAL_DIR/vendor/src $URIAL_DIR/rosinstall/capra.rosinstall
 wstool update -t $URIAL_DIR/vendor/src
-} >> $logFile 
+} >> $logFile
 
 #PATH and .bashrc stuff
 echo "Setting up ROS PATH and environment"
@@ -102,10 +107,10 @@ if [ -f "/etc/ros/rosdep/sources.list.d/20-default.list" ]
 		rosdep update
 		rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
 fi
-	
 
 
-} >> $logFile 
+
+} >> $logFile
 
 
 #git config stuff
@@ -122,7 +127,7 @@ echo "Configuring and setting up git and submodules..."
 	git config --global color.diff true
 
 
-} >> $logFile 
+} >> $logFile
 
 #build workspace
 
@@ -130,7 +135,7 @@ echo "Configuring and setting up git and submodules..."
 source $BASHRC
 
 echo "Building workspace... This can take a while"
-catkin_make >> $logFile 
+catkin_make >> $logFile
 
 # Build external source packages
 cd $URIAL_DIR/vendor/
