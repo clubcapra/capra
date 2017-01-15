@@ -26,6 +26,7 @@ class Motor:
 
     def set_velocity(self, velocity):
         radial_velocity = ((velocity * self.speed_ration) / self.wheel_diameter) * self.gear_ratio
+        print("Here we are")
         self.send_command(radial_velocity)
 
 
@@ -83,6 +84,6 @@ class Motor:
     #Publish command on a topic
     def send_command(self, setpoint):
         command = Command()
-        command.mode = self.get_mode()
-        command.setpoint = setpoint
+        command.commanded_velocity = setpoint
+        self.cmd_publisher.publish(command)
 

@@ -13,7 +13,7 @@ class Config:
     DEFAULT_NB_MOTORS = 2
     DEFAULT_MAX_SPEED = 3.0
     DEFAULT_BROADCAST_ADDRESS = 0x80
-    DEFAULT_SERIAL_PORT = "/dev/ttyACM1"
+    DEFAULT_SERIAL_PORT = "/dev/ttyACM0"
     DEFAULT_DEFAULT_ACCEL = 10
     DEFAULT_BAUDRATE = 112500
     DEFAULT_MAX_TIMEOUT_COUNT = 2
@@ -54,10 +54,6 @@ class Config:
     covariance_matrix = None
     speed_ratio = None
     position_ratio = None
-    swivel_encoder_ticks = None
-    swivel_gear_ratio = None
-    swivel_encoder_baud = None
-    swivel_encoder_port = None
 
     @staticmethod
     def get_resolution():
@@ -173,28 +169,3 @@ class Config:
             pstr = rospy.get_param('~position_ratio', Config.DEFAULT_POSITION_RATIO)
             Config.position_ratio = [float(v.strip()) for v in pstr.split(",")]
         return Config.position_ratio
-
-    @staticmethod
-    def get_swivel_encoder_port():
-        if not Config.swivel_encoder_port:
-            Config.watchdog_timeout = rospy.get_param('~swivel_encoder_port', Config.DEFAULT_SWIVEL_ENC_SERIAL_PORT)
-        return Config.swivel_encoder_port
-
-    @staticmethod
-    def get_swivel_encoder_baud():
-        if not Config.swivel_encoder_baud:
-            Config.watchdog_timeout = rospy.get_param('~swivel_encoder_baud', Config.DEFAULT_SWIVEL_ENC_BAUD_RATE)
-        return Config.swivel_encoder_baud
-
-    @staticmethod
-    def get_swivel_encoder_ticks():
-        if not Config.swivel_encoder_ticks:
-            Config.swivel_encoder_ticks = rospy.get_param('~swivel_encoder_ticks', Config.DEFAULT_SWIVEL_ENC_BAUD_RATE)
-        return Config.swivel_encoder_ticks
-
-    @staticmethod
-    def get_swivel_gear_ratio():
-        if not Config.swivel_gear_ratio:
-            Config.swivel_gear_ratio = rospy.get_param('~swivel_gear_ratio', Config.DEFAULT_SWIVEL_GEAR_RATIO)
-        return Config.swivel_gear_ratio
-
