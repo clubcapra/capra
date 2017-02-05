@@ -1,0 +1,21 @@
+<launch>
+  <arg name="max_range" default="5" />
+  <arg name="map_file" default="" />
+  <arg name="latch" default="false" />
+  <arg name="resolution" default="0.05" />
+  <arg name="frame_id" default="odom"/>
+
+  <node pkg="octomap_server" type="octomap_server_node" name="octomap_server" args="$(arg map_file)">
+    <!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
+    <param name="frame_id" type="string" value="$(arg frame_id)" />
+    <!-- maximum range to integrate (speedup!) -->
+    <param name="sensor_model/max_range" value="$(arg max_range)" />
+    <param name="latch" value="$(arg latch)" />
+    <param name="resolution" value="$(arg resolution)" />
+
+    <remap from="/projected_map" to="/map" />
+  </node>
+    <node name="relay" type="relay" pkg="topic_tools" required="true" args="cloud_vision cloud_in">
+
+    </node>
+</launch>
