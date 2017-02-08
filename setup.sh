@@ -5,7 +5,7 @@ if [ "$USER" = "root" ]; then
     exit 1
 fi
 
-# Automatic install of Ibex for Capra. Please have Urial at ~/Urial for perfect results. Update the PATH script stuff if it's not the case.
+# Automatic install of Urial for Capra. Please have Urial at ~/Urial for perfect results. Update the PATH script stuff if it's not the case.
 allDone=0
 
 abort()
@@ -14,7 +14,7 @@ abort()
 	then
 	    echo "
 =============================================
-Error install Ibex. Aborting.
+Error install Urial. Aborting.
 Please check $logFile for details
 =============================================" >&2
 	fi
@@ -32,7 +32,7 @@ sudo echo ""
 logFile="logsetup.log"
 
 echo "=============================================================
-Installing Ibex...
+Installing Urial...
 The process may take a while. If you're worried something
 went wrong, juste check the logs ($logFile)
 ============================================================="
@@ -127,7 +127,7 @@ cwd="$PWD"
 
 echo "
 =========================================================
-Ibex installation successful. Grab a beer and a pizza!
+Urial installation successful. Grab a beer and a pizza!
 ========================================================="
 
 allDone=1
