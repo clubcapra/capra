@@ -1,5 +1,5 @@
 <launch>
-    <arg name="output_location" default="$(env IBEX_HOME)/bags/"/>
+    <arg name="output_location" default="$(env URIAL_HOME)/bags/"/>
     <arg name="record_interval" default="2"/>
 
     <node name="gps_point_recorder" pkg="capra_ai" type="gps_point_recorder.py" output="screen">
