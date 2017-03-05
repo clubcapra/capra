@@ -1,0 +1,7 @@
+<run>
+    <goals>
+        <goal x="0.0" y="0.0"></goal>
+        <goal x="1.0" y="1.0"></goal>
+        <goal x="2.0" y="2.0"></goal>
+    </goals>
+</run>
