@@ -5,6 +5,8 @@ project(capra_ai)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  actionlib
+  move_base_msgs
   capra_msgs
   geometry_msgs
   nav_msgs
@@ -94,9 +96,14 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES capra_ai
+<<<<<<< 39b529805000557cd59ba3b7b230bcf3e1a6dd64
+#  CATKIN_DEPENDS other_catkin_pkg
+#  DEPENDS system_lib
+=======
 #  CATKIN_DEPENDS capra_msgs geometry_msgs nav_msgs rospy sensor_msgs std_msgs
 #  DEPENDS system_lib
   CATKIN_DEPENDS message_runtime
+>>>>>>> Try to make it simulation work.
 )
 
 ###########

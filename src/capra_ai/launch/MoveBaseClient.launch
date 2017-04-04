@@ -1,0 +1,7 @@
+<launch>
+    <arg name="file" default="$(env URIAL_HOME)/src/capra_ai/runs/test.xml" />
+
+    <node name="move_base_client" pkg="capra_ai" type="move_base_client.py" output="screen">
+        <param name="file" value="$(arg file)" />
+    </node>
+</launch>
