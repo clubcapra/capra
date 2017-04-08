@@ -56,7 +56,7 @@ sudo apt-get install -y ros-kinetic-desktop-full -y
 sudo apt-get install git python-pip python-wstool -y
 
 # Put package after
-sudo apt-get install ros-kinetic-navigation ros-kinetic-image-pipeline ros-kinetic-octomap ros-kinetic-joy libopenni2-dev tcl-vtk libtf-dev ros-kinetic-serial python-roslaunch -y ros-kinetic-lms1xx ros-kinetic-serial ros-kinetic-octomap-server ros-kinetic-robot-localization ros-kinetic-hector-mapping python-actionlib ros-kinetic-move-base-msgs libgsl-dev
+sudo apt-get install ros-kinetic-navigation ros-kinetic-image-pipeline ros-kinetic-octomap ros-kinetic-joy libopenni2-dev tcl-vtk libtf-dev ros-kinetic-serial python-roslaunch -y ros-kinetic-lms1xx ros-kinetic-serial ros-kinetic-octomap-server ros-kinetic-robot-localization ros-kinetic-hector-mapping ros-kinetic-csm python-actionlib ros-kinetic-move-base-msgs libgsl-dev
 
 # ROS Install
 rm -f $URIAL_DIR/vendor/src/.rosinstall
