@@ -33,17 +33,13 @@ class RoboteqMotor:
         rospy.spin()
 
     def velocity_timer(self, event):
-        print('velocity timer {} --- {}'.format(rospy.get_time() - self.requested_vel_time, Config.get_watchdog_timeout()))
-       # if rospy.get_time() - self.requested_vel_time > Config.get_watchdog_timeout(): # Velocity has not be honoured in time
-        #    print('too late')
-         #   self.last_vel = Twist()
-          #  self.motor_conductor.set_velocity(0, 0)  # Can't trust last requested velocity anymore. Stop motors and cry
-        #else:
-        self.motor_conductor.set_velocity(self.requested_vel.linear.x, self.requested_vel.angular.z)
+        if rospy.get_time() - self.requested_vel_time > Config.get_watchdog_timeout(): #Velocity has not be honoured in time
+            self.motor_conductor.set_velocity(0, 0)  # Can't trust last requested velocity anymore. Stop motors and cry
+        else:
+            self.motor_conductor.set_velocity(self.requested_vel.linear.x, self.requested_vel.angular.z)
 
 
     def cmd_vel_callback(self,msg):
-        print(msg)
         self.requested_vel = msg
         self.requested_vel_time = rospy.get_time()
 

@@ -26,7 +26,6 @@ class Motor:
 
     def set_velocity(self, velocity):
         radial_velocity = ((velocity * self.speed_ration) / self.wheel_diameter) * self.gear_ratio
-        print("Here we are")
         self.send_command(radial_velocity)
 
 
