@@ -1,0 +1,17 @@
+
+    <launch>
+        <node pkg="roboteq_motor" name="roboteq_motor" type="roboteq_motor_node.py" output="screen">
+        </node>
+      <node pkg="roboteq_driver" type="driver_node" name="roboteq_driver" output="screen">
+        <rosparam>
+            port: /dev/ttyUSB0
+            baud: 115200
+            channels: ['left', 'right']
+        </rosparam>
+        <remap from="/left/cmd" to="/roboteq_driver/left/cmd" />
+        <remap from="/right/cmd" to="/roboteq_driver/right/cmd" />
+        <remap from="/left/feedback" to="/roboteq_driver/left/feedback" />
+        <remap from="/right/feedback" to="/roboteq_driver/right/feedback" />
+    </node>
+
+    </launch>
