@@ -45,7 +45,7 @@
         <origin xyz="0.36 0 0.44" rpy="0 0 0" />
     </joint>
 
-        
+
     <link name="laser">
         <inertial>
             <mass value="1" />
@@ -82,11 +82,32 @@
 
     <joint name="joint2" type="fixed">
         <parent link="base_link" />
-        <child link="camera" />
-        <origin xyz="0.28 0 1.28" rpy="0 0.92 0" />
+        <child link="camera_left" />
+        <origin xyz="0.28 -0.2 1.28" rpy="0 0.9 0" />
     </joint>
 
-    <link name='camera'>
+
+    <joint name="joint3" type="fixed">
+        <parent link="base_link" />
+        <child link="camera_right" />
+        <origin xyz="0.28 0.2 1.28" rpy="0 0.9 0" />
+    </joint>
+
+
+    <link name='camera_right'>
+        <inertial>
+            <mass value="1" />
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+        </inertial>
+        <collision>
+            <geometry>
+                <sphere radius="0.1" />
+            </geometry>
+        </collision>
+    </link>
+
+
+    <link name='camera_left'>
         <inertial>
             <mass value="1" />
             <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
@@ -106,14 +127,14 @@
         <gravity>false</gravity>
     </gazebo>
 
-    <gazebo reference="camera">
+    <gazebo reference="camera_left">
         <gravity>false</gravity>
-        <sensor name="camera" type="camera" update_rate="20.0" >
+        <sensor name="camera_left" type="camera" update_rate="20.0" >
             <camera>
                 <horizontal_fov>1.6</horizontal_fov>
                 <image>
-                    <width>1292</width>
-                    <height>734</height>
+                    <width>648</width>
+                    <height>516</height>
                 </image>
                 <clip>
                     <near>0.1</near>
@@ -126,8 +147,39 @@
                 </noise>
             </camera>
             <plugin name="camera_plugin" filename="libgazebo_ros_camera.so">
-                <cameraName></cameraName>
-                <frameName>camera</frameName>
+                <cameraName>left_camera</cameraName>
+                <frameName>left_camera</frameName>
+                <imageTopicName>image_raw</imageTopicName>
+                <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+            </plugin>
+            <always_on>1</always_on>
+            <update_rate>40</update_rate>
+            <visualize>true</visualize>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="camera_right">
+        <gravity>false</gravity>
+        <sensor name="camera_right" type="camera" update_rate="20.0" >
+            <camera>
+                <horizontal_fov>1.6</horizontal_fov>
+                <image>
+                    <width>648</width>
+                    <height>516</height>
+                </image>
+                <clip>
+                    <near>0.1</near>
+                    <far>50</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <plugin name="camera_plugin" filename="libgazebo_ros_camera.so">
+                <cameraName>right_camera</cameraName>
+                <frameName>right_camera</frameName>
                 <imageTopicName>image_raw</imageTopicName>
                 <cameraInfoTopicName>camera_info</cameraInfoTopicName>
             </plugin>
