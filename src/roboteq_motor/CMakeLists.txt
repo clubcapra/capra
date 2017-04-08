@@ -7,7 +7,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 catkin_package(
-   INCLUDE_DIRS include
+ #  INCLUDE_DIRS include
 #  LIBRARIES roboteq_motor
 #  CATKIN_DEPENDS roscpp rosserial
 #  DEPENDS system_lib
@@ -18,5 +18,5 @@ include_directories(
 )
 
 ## Declare a C++ executable
-add_executable(roboteq_motor_node src/roboteq_motor_node.cpp)
-target_link_libraries(roboteq_motor_node ${catkin_LIBRARIES})
+##add_executable(roboteq_motor_node src/roboteq_motor_node.cpp)
+##target_link_libraries(roboteq_motor_node ${catkin_LIBRARIES})
