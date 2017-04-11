@@ -14,7 +14,7 @@ abort()
 	then
 	    echo "
 =============================================
-Error install Urial. Aborting.
+Error installing Urial. Aborting.
 Please check $logFile for details
 =============================================" >&2
 	fi
@@ -41,27 +41,54 @@ URIAL_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 BASHRC=~/.bashrc
 
 #install ROS
-echo "Downloading packages..."
+echo "Updating and upgrading packages..."
 {
 	sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 0xB01FA116
-# To get the latest package lists
-sudo apt-get update -y
-sudo apt-get upgrade -y
+  sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 0xB01FA116
 
-# ROS installation
-sudo apt-get install -y ros-kinetic-desktop-full -y
+  # To get the latest package lists
+  sudo apt-get update -y
+  sudo apt-get upgrade -y
+} >> $logFile
 
-# Install tools
-sudo apt-get install git python-pip python-wstool -y
+echo "Installing tools..."
+{
+  # Install tools
+  sudo apt-get install -y git python-pip python-wstool
+} >> $logFile
 
-# Put package after
-sudo apt-get install ros-kinetic-navigation ros-kinetic-image-pipeline ros-kinetic-octomap ros-kinetic-joy libopenni2-dev tcl-vtk libtf-dev ros-kinetic-serial python-roslaunch -y ros-kinetic-lms1xx ros-kinetic-serial ros-kinetic-octomap-server ros-kinetic-robot-localization ros-kinetic-hector-mapping python-actionlib ros-kinetic-move-base-msgs
+#git config stuff
+echo "Configuring and setting up git and submodules..."
+{
+	git config --global fetch.recurseSubmodules true
+	git config --global alias.st status
+	git config --global alias.ci commit
+	git config --global alias.co checkout
+	git config --global alias.br branch
+	git config --global color.ui true
+	git config --global color.status auto
+	git config --global color.branch auto
+	git config --global color.diff true
+} >> $logFile
 
-# ROS Install
-rm -f $URIAL_DIR/vendor/src/.rosinstall
-wstool init $URIAL_DIR/vendor/src $URIAL_DIR/rosinstall/capra.rosinstall
-wstool update -t $URIAL_DIR/vendor/src
+echo "Installing ros-kinetic-desktop-full. This may take a while..."
+{
+  # ROS installation
+  sudo apt-get install -y ros-kinetic-desktop-full
+} >> $logFile
+
+echo "Installing ros packages..."
+{
+  # Put package after
+  sudo apt-get install -y ros-kinetic-navigation ros-kinetic-image-pipeline ros-kinetic-octomap ros-kinetic-joy libopenni2-dev tcl-vtk libtf-dev ros-kinetic-serial ros-kinetic-lms1xx ros-kinetic-serial ros-kinetic-octomap-server ros-kinetic-robot-localization ros-kinetic-hector-mapping python-actionlib ros-kinetic-move-base-msgs
+} >> $logFile
+
+echo "Initializing workspace..."
+{
+  # ROS Install
+  rm -f $URIAL_DIR/vendor/src/.rosinstall
+  wstool init $URIAL_DIR/vendor/src $URIAL_DIR/rosinstall/capra.rosinstall
+  wstool update -t $URIAL_DIR/vendor/src
 } >> $logFile
 
 #PATH and .bashrc stuff
@@ -83,27 +110,12 @@ echo "Setting up ROS PATH and environment"
 
     if [ -f "/etc/ros/rosdep/sources.list.d/20-default.list" ]
     then
-	echo "Rosdep seems to be already there. Skipping.. "
+      echo "Rosdep seems to be already there. Skipping.. "
     else
-	sudo rosdep init
-	rosdep update
-	rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
+      sudo rosdep init
+      rosdep update
+      rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
     fi
-} >> $logFile
-
-
-#git config stuff
-echo "Configuring and setting up git and submodules..."
-{
-	git config --global fetch.recurseSubmodules true
-	git config --global alias.st status
-	git config --global alias.ci commit
-	git config --global alias.co checkout
-	git config --global alias.br branch
-	git config --global color.ui true
-	git config --global color.status auto
-	git config --global color.branch auto
-	git config --global color.diff true
 } >> $logFile
 
 #build workspace
@@ -111,7 +123,7 @@ echo "Configuring and setting up git and submodules..."
 # Load vendor setup.bash
 source $BASHRC
 
-echo "Building workspace... This can take a while"
+echo "Building workspace. This can take a while..."
 
 # Build external source packages
 cd $URIAL_DIR/vendor/
