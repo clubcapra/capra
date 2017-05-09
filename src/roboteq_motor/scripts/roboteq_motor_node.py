@@ -15,9 +15,8 @@ class RoboteqMotor:
     def __init__(self):
         rospy.init_node("roboteq_motor")
 
-        self.requested_vel = None
+        self.requested_vel = Twist()
         self.requested_vel_time = 0
-        self.last_vel = Twist()
 
         #Motor conductor create motors at relevant locations
         self.motor_conductor = MotorConductor()
@@ -34,14 +33,10 @@ class RoboteqMotor:
         rospy.spin()
 
     def velocity_timer(self, event):
-        if rospy.get_time() - self.requested_vel_time > Config.get_watchdog_timeout(): # Velocity has not be honoured in time
-            if self.last_vel.linear.x != 0 or self.last_vel.angular.z != 0:
-                self.last_vel = Twist()
-                self.motor_conductor.set_velocity(0, 0)  # Can't trust last requested velocity anymore. Stop motors and cry
+        if rospy.get_time() - self.requested_vel_time > Config.get_watchdog_timeout(): #Velocity has not be honoured in time
+            self.motor_conductor.set_velocity(0, 0)  # Can't trust last requested velocity anymore. Stop motors and cry
         else:
-            if self.last_vel.linear.x != self.requested_vel.linear.x or self.last_vel.angular.z != self.requested_vel.angular.z: # Don't spam motors if the velocity has remained unchanged
-                self.last_vel = self.requested_vel
-                self.motor_conductor.set_velocity(self.last_vel.linear.x, self.last_vel.angular.z)
+            self.motor_conductor.set_velocity(self.requested_vel.linear.x, self.requested_vel.angular.z)
 
 
     def cmd_vel_callback(self,msg):

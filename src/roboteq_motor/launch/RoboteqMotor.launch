@@ -4,12 +4,14 @@
         </node>
       <node pkg="roboteq_driver" type="driver_node" name="roboteq_driver" output="screen">
         <rosparam>
-            port: /dev/ttyUSB2000
-            baud:115200
+            port: /dev/ttyUSB0
+            baud: 115200
+            channels: ['left', 'right']
         </rosparam>
-        <rosparam>
-            channel: ['left', 'right']
-        </rosparam>
+        <remap from="/left/cmd" to="/roboteq_driver/left/cmd" />
+        <remap from="/right/cmd" to="/roboteq_driver/right/cmd" />
+        <remap from="/left/feedback" to="/roboteq_driver/left/feedback" />
+        <remap from="/right/feedback" to="/roboteq_driver/right/feedback" />
     </node>
 
     </launch>

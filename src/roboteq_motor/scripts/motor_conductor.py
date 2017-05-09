@@ -31,9 +31,6 @@ class MotorConductor:
         front_left_speed = linear_velocity - angular_velocity * width / 2.0
         front_right_speed = linear_velocity + angular_velocity * width / 2.0
 
-        # Calculate rear motors velocity
-        # Apply linear speed, angular component will probably be applied by the swivel
-
         self.motor_front_left.set_velocity(front_left_speed)
         self.motor_front_right.set_velocity(front_right_speed)
 
