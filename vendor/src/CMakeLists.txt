@@ -7,9 +7,6 @@ set(CATKIN_TOPLEVEL TRUE)
 
 set(PCL_APPS_LIBRARY "/usr/lib/libpcl_apps.so")
 
-execute_process(COMMAND "ln -s /usr/local deploy"  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/csm)	
-execute_process(COMMAND sudo bash install_quickstart.sh WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/csm)	
-
 # search for catkin within the workspace
 set(_cmd "catkin_find_pkg" "catkin" "${CMAKE_SOURCE_DIR}")
 execute_process(COMMAND ${_cmd}
