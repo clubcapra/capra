@@ -41,6 +41,8 @@ namespace capra_filters {
 
       cv::warpPerspective(cv_ptr->image, cv_ptr->image, matrix_, cv::Size(width_, height_));
 
+      cv_ptr->header.stamp = msg->header.stamp;
+
       pub_.publish(cv_ptr->toImageMsg());
     }
 

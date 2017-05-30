@@ -42,6 +42,7 @@ namespace capra_filters {
       }
 
       cv::rectangle(cv_ptr->image, cv::Point(x_, y_), cv::Point(x_ + width_, y_ + height_), cv::Scalar(0, 0, 0), CV_FILLED);
+      cv_ptr->header.stamp = msg->header.stamp;
 
       pub_.publish(cv_ptr->toImageMsg());
     }

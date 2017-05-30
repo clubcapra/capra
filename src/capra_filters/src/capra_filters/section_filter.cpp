@@ -60,6 +60,8 @@ namespace capra_filters {
       cv::Mat chans[] = {hue, hue, hue};
       cv::merge(chans, 3, cv_ptr->image);
 
+      cv_ptr->header.stamp = msg->header.stamp;
+
       pub_.publish(cv_ptr->toImageMsg());
     }
 

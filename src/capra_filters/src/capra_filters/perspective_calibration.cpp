@@ -49,6 +49,7 @@ namespace capra_filters {
       }
 
       cv_ptr->image = transform(perspective(cv_ptr->image));
+      cv_ptr->header.stamp = msg->header.stamp;
 
       pub_.publish(cv_ptr->toImageMsg());
     }
