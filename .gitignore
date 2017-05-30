@@ -177,7 +177,7 @@ devel
 
 .idea/
 
-MakeFile
+Makefile
 catkin_generated
 cmake
 CMakeFiles
