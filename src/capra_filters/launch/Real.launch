@@ -1,0 +1,7 @@
+<launch>
+  <group>
+    <include file="$(find capra_filters)/launch/Left.launch">
+      <arg name="gui" value="True" />
+    </include>
+  </group>
+</launch>

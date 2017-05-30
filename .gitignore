@@ -176,3 +176,12 @@ devel
 
 
 .idea/
+
+catkin_generated
+cmake
+CMakeFiles
+CMakeCache.txt
+CTestTestfile.cmake
+gtest
+
+*.swp
