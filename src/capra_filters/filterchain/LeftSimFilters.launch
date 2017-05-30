@@ -1,0 +1,59 @@
+<launch>
+  <arg name="capra_filters_ns" default="capra_filters" />
+
+  <node pkg="nodelet" name="bgr2rgb" type="nodelet" args="load capra_filters/bgr2rgb /$(arg capra_filters_ns)/nodelet_manager" output="screen">
+    <param name="type" value="capra_filters/bgr2rgb"/>
+    <param name="input" value="/left_camera/image_raw" />
+    <param name="output" value="bgr" />
+  </node>
+
+  <node pkg="nodelet" name="resize" type="nodelet" args="load capra_filters/resize /$(arg capra_filters_ns)/nodelet_manager" output="screen">
+    <param name="type" value="capra_filters/resize"/>
+    <param name="width" value="646" />
+    <param name="height" value="367" />
+    <param name="input" value="bgr" />
+    <param name="output" value="resize" />
+  </node>
+
+  <node pkg="nodelet" name="rectangle" type="nodelet" args="load capra_filters/rectangle /$(arg capra_filters_ns)/nodelet_manager" output="screen">
+    <param name="x" value="143" />
+    <param name="height" value="300" />
+    <param name="width" value="196" />
+    <param name="output" value="rectangle" />
+    <param name="y" value="290" />
+    <param name="input" value="resize" />
+    <param name="type" value="capra_filters/rectangle" />
+  </node>
+
+  <node pkg="nodelet" name="perspective" type="nodelet" args="load capra_filters/perspective_calibration /$(arg capra_filters_ns)/nodelet_manager">
+    <param name="top_right_y" value="-59" />
+    <param name="top_left_x" value="-8" />
+    <param name="bottom_left_x" value="248" />
+    <param name="zoom" value="114" />
+    <param name="translation_y" value="-222" />
+    <param name="translation_x" value="-32" />
+    <param name="bottom_right_y" value="139" />
+    <param name="bottom_right_x" value="362" />
+    <param name="input" value="rectangle" />
+    <param name="top_right_x" value="625" />
+    <param name="output" value="perspective" />
+    <param name="bottom_left_y" value="139" />
+    <param name="type" value="capra_filters/perspective_calibration" />
+    <param name="top_left_y" value="-59" />
+  </node>
+
+  <node pkg="nodelet" name="section_filter" type="nodelet" args="load capra_filters/section_filter /$(arg capra_filters_ns)/nodelet_manager" output="screen">
+    <param name="sections" value="10" />
+    <param name="grass_max" value="255" />
+    <param name="output" value="section_filter" />
+    <param name="min_area" value="118" />
+    <param name="kernel_erode_width" value="2" />
+    <param name="grass_min" value="209" />
+    <param name="light_min" value="190" />
+    <param name="kernel_dilate_width" value="6" />
+    <param name="kernel_erode_height" value="2" />
+    <param name="kernel_dilate_height" value="6" />
+    <param name="input" value="perspective" />
+    <param name="type" value="capra_filters/section_filter" />
+  </node>
+</launch>

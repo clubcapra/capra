@@ -37,7 +37,6 @@
     <param name="type" value="capra_filters/rectangle" />
   </node>
 
-
   <node pkg="nodelet" name="perspective_calibration" type="nodelet" args="load capra_filters/warp_perspective /$(arg capra_filters_ns)/nodelet_manager">
     <param name="a" value="0.5453037601275226" />
     <param name="b" value="1.1072528376015696" />
@@ -48,11 +47,12 @@
     <param name="g" value="0.0010270904649316613" />
     <param name="h" value="0.01162129640408978" />
     <param name="i" value="1.0" />
-    
+
     <param name="input" value="section_filter" />
     <param name="output" value="perspective_calibration" />
     <param name="type" value="capra_filters/warp_perspective" />
   </node>
+
   <node pkg="capra_filters" name="image_to_pointcloud" type="image_to_pointcloud.py">
     <param name="in" value="perspective_calibration" />
     <param name="out" value="/cloud_in" />

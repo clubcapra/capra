@@ -35,4 +35,7 @@
             <arg name="loop" value="false" />
     </include>
 
+    <!-- Vision -->
+    <include file="$(find capra_filters)/launch/Sim.launch"></include>
+
 </launch>

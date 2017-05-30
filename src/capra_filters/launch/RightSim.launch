@@ -1,0 +1,17 @@
+<launch>
+  <arg name="capra_filters_ns" default="right_filters" />
+  <arg name="gui" default="False" />
+
+  <include file="$(find capra_filters)/launch/Manager.launch" ns="$(arg capra_filters_ns)">
+    <arg name="gui" value="$(arg gui)" />
+  </include>
+
+  <include file="$(find capra_filters)/filterchain/RightSimFilters.launch" ns="$(arg capra_filters_ns)">
+    <arg name="capra_filters_ns" value="$(arg capra_filters_ns)" />
+  </include>
+
+  <node pkg="capra_filters" name="image_to_pointcloud_right" type="image_to_pointcloud.py">
+    <param name="in" value="/left_filters/section_filter" />
+    <param name="out" value="/cloud_in" />
+  </node>
+</launch>

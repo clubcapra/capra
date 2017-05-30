@@ -1,0 +1,16 @@
+<launch>
+    <!-- GAZEBO -->
+    <include file="$(find capra_gazebo)/launch/Gazebo.launch">
+        <arg name="gui" value="False" />
+        <arg name="world" value="$(find capra_gazebo)/worlds/calibrate.world" />
+    </include>
+
+    <!-- VISION -->
+    <node pkg="capra_filters" name="pointcloud_generator" type="pointcloud_generator.py" />
+
+    <include file="$(find capra_filters)/launch/SimCalibration.launch" />
+
+    <!--RVIZ  -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find capra_gazebo)/../../rviz_cfg/calibrate.rviz"/>
+
+</launch>

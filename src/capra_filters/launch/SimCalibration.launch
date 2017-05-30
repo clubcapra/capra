@@ -1,0 +1,15 @@
+<launch>
+  <include file="$(find capra_filters)/launch/LeftSimCalibration.launch"></include>
+  <include file="$(find capra_filters)/launch/RightSimCalibration.launch"></include>
+
+
+  <node pkg="capra_filters" name="image_to_pointcloud_left" type="image_to_pointcloud.py">
+    <param name="in" value="/left_filters/perspective" />
+    <param name="out" value="/cloud_left" />
+  </node>
+
+  <node pkg="capra_filters" name="image_to_pointcloud_right" type="image_to_pointcloud.py">
+    <param name="in" value="/right_filters/perspective" />
+    <param name="out" value="/cloud_right" />
+  </node>
+</launch>

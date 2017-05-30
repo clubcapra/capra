@@ -9,7 +9,6 @@ import numpy as np
 import cv2 as cv
 from math import *
 
-
 bridge = CvBridge()
 
 # size of the output cloud. For example, total width in meters is (w/k)*100
@@ -62,8 +61,8 @@ def handle_image(req):
 
     # add image
     img = bridge.imgmsg_to_cv2(req, desired_encoding="passthrough")
-    img = cv2.cvtColor(img, cv.CV_BGR2GRAY)
-    # img = cv2.resize(img, (w, h))
+    img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    img = cv.resize(img, (w, h))
 
     points = np.column_stack((points_xyz, np.flipud(np.ravel(img))))
     points = points[np.logical_not(points[:,3] == 0)]
