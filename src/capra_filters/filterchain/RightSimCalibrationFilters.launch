@@ -1,0 +1,46 @@
+<launch>
+  <arg name="capra_filters_ns" default="/right_filters" />
+  <node pkg="nodelet" name="rectangle" type="nodelet" args="load capra_filters/rectangle /$(arg capra_filters_ns)/nodelet_manager">
+    <param name="x" value="220" />
+    <param name="height" value="300" />
+    <param name="width" value="230" />
+    <param name="output" value="rectangle" />
+    <param name="y" value="250" />
+    <param name="input" value="resize" />
+    <param name="type" value="capra_filters/rectangle" />
+  </node>
+  <node pkg="nodelet" name="perspective" type="nodelet" args="load capra_filters/perspective_calibration /$(arg capra_filters_ns)/nodelet_manager">
+    <param name="top_right_y" value="-59" />
+    <param name="top_left_x" value="-8" />
+    <param name="bottom_left_x" value="248" />
+    <param name="zoom" value="114" />
+    <param name="translation_y" value="-222" />
+    <param name="translation_x" value="-4" />
+    <param name="bottom_right_y" value="139" />
+    <param name="bottom_right_x" value="362" />
+    <param name="input" value="rectangle" />
+    <param name="top_right_x" value="625" />
+    <param name="output" value="perspective" />
+    <param name="bottom_left_y" value="139" />
+    <param name="type" value="capra_filters/perspective_calibration" />
+    <param name="top_left_y" value="-59" />
+  </node>
+  <node pkg="nodelet" name="threshold" type="nodelet" args="load capra_filters/threshold /$(arg capra_filters_ns)/nodelet_manager">
+    <param name="c2max" value="255" />
+    <param name="output" value="threshold" />
+    <param name="c2min" value="5" />
+    <param name="input" value="/right_camera/image_raw" />
+    <param name="c3min" value="0" />
+    <param name="c1max" value="255" />
+    <param name="c1min" value="0" />
+    <param name="type" value="capra_filters/threshold" />
+    <param name="c3max" value="255" />
+  </node>
+  <node pkg="nodelet" name="resize" type="nodelet" args="load capra_filters/resize /$(arg capra_filters_ns)/nodelet_manager">
+    <param name="height" value="367" />
+    <param name="width" value="646" />
+    <param name="output" value="resize" />
+    <param name="input" value="threshold" />
+    <param name="type" value="capra_filters/resize" />
+  </node>
+</launch>

@@ -1,0 +1,12 @@
+<launch>
+  <arg name="capra_filters_ns" default="right_filters" />
+  <arg name="gui" default="False" />
+
+  <include file="$(find capra_filters)/launch/Manager.launch" ns="$(arg capra_filters_ns)">
+    <arg name="gui" value="$(arg gui)" />
+  </include>
+
+  <include file="$(find capra_filters)/filterchain/RightFilters.launch" ns="$(arg capra_filters_ns)">
+    <arg name="capra_filters_ns" value="$(arg capra_filters_ns)" />
+  </include>
+</launch>

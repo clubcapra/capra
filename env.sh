@@ -5,6 +5,8 @@ export URIAL_HOME=$URIAL_DIR
 
 export ROSCONSOLE_FORMAT='[\${severity}] [\${node}] [\${time}]: \${message}'
 
+export GAZEBO_MODEL_PATH=$URIAL_DIR/src/capra_gazebo/models
+
 alias urial='cd $URIAL_HOME'
 
 source /opt/ros/kinetic/setup.bash

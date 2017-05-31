@@ -1,0 +1,4 @@
+<launch>
+  <include file="$(find capra_filters)/launch/LeftSim.launch"></include>
+  <include file="$(find capra_filters)/launch/RightSim.launch"></include>
+</launch>
