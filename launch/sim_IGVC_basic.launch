@@ -33,7 +33,7 @@
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(env URIAL_HOME)/rviz_cfg/mapping.rviz"/>
 
     <!-- GOAL LOADER -->
-   <include file="$(find capra_ai)/launch/MoveBaseClient.launch" >
+   <include file="$(find capra_ai)/launch/GoalManager.launch" >
         <arg name="file" value="$(env URIAL_HOME)/waypoints/IGVCBasicCourse.json" />
     </include>
 
